@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="icon" type="image/png" href="images.jfif" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Task net</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav>
+      <div class="nav-top">
+        <p class="logo">
+          <span><i class="fa-solid fa-list-check"></i></span>TaskNet
+        </p>
+        <div class="nav-btns">
+          <button class="night-mode" aria-label="Toggle dark mode">
+            <svg
+              id="icon-moon"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg
+              id="icon-sun"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="display: none"
+            >
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <div class="theme-wrapper">
+            <button class="theme-btn" id="theme-btn" aria-label="Choose accent color">
+              <i class="fa-solid fa-palette"></i>
+            </button>
+            <div class="theme-dropdown" id="theme-dropdown">
+              <p class="dropdown-label">Accent color</p>
+              <div class="swatch-row">
+                <button type="button" class="swatch active" data-accent="#6d3aed" data-accent-hover="#7c51e9" style="background-color:#6d3aed" aria-label="Violet"></button>
+                <button type="button" class="swatch" data-accent="#2563eb" data-accent-hover="#3b82f6" style="background-color:#2563eb" aria-label="Blue"></button>
+                <button type="button" class="swatch" data-accent="#059669" data-accent-hover="#10b981" style="background-color:#059669" aria-label="Green"></button>
+                <button type="button" class="swatch" data-accent="#db2777" data-accent-hover="#ec4899" style="background-color:#db2777" aria-label="Pink"></button>
+                <button type="button" class="swatch" data-accent="#ea580c" data-accent-hover="#f97316" style="background-color:#ea580c" aria-label="Orange"></button>
+              </div>
+            </div>
+          </div>
+
+          <button class="add-task" id="add-btn">+<span>Add task</span></button>
+        </div>
+      </div>
+      <div class="search" id="search-container">
+        <input
+          type="text"
+          class="search-bar"
+          id="search-bar"
+          placeholder="Search tasks..."
+          autocomplete="off"
+        />
+        <span class="search-icon"
+          ><i class="fa-solid fa-magnifying-glass"></i
+        ></span>
+      </div>
+    </nav>
+    <!-- main section -->
+    <main>
+      <div class="top">
+        <div class="section-btns">
+          <p class="All" id="all-btn">All</p>
+          <p class="Active-btn" id="active-btn">Active</p>
+          <p class="completed" id="completed-btn">Completed</p>
+        </div>
+        <div class="drop-down-container">
+          <span class="task-count" id="task-count">tasks 0</span>
+          <div class="drop-down">
+            <select class="sort">
+              <option value="Due date">sort : Due date</option>
+              <option value="priority">sort : priority</option>
+              <option value="alpha">sort : A → Z</option>
+            </select>
+          </div>
+          <button class="delete-all" id="delete-all-btn">Delete All</button>
+        </div>
+      </div>
+      <!-- card container -->
+      <div class="task-list empty" id="task-list"></div>
+
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+        <p class="epmty-massage-header">All clear!</p>
+        <p class="empty-massage-description">Your task list is empty</p>
+        <button class="add-task" id="empty-add-btn">+<span>Add task</span></button>
+      </div>
+
+      <div class="no-results-state" id="no-results-state">
+        <div class="no-results-icon"><i class="fa-solid fa-magnifying-glass-minus"></i></div>
+        <p class="no-results-header">No matching tasks</p>
+        <p class="no-results-description">Try a different search or filter</p>
+        <button class="clear-search-btn" id="clear-search-btn">Clear search</button>
+      </div>
+
+      <div class="section-empty-state" id="section-empty-state">
+        <div class="section-empty-icon" id="section-empty-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <p class="section-empty-header" id="section-empty-header">No active tasks</p>
+        <p class="section-empty-description" id="section-empty-description">Everything is either done or not started yet</p>
+        <button class="view-all-btn" id="view-all-btn">View all tasks</button>
+      </div>
+
+      <div class="overlay"></div>
+      <!--to make blury bg-->
+
+      <!-- add screen  -->
+
+      <div class="add-task-screen">
+        <div class="head">
+          <h5>New task</h5>
+          <i class="fa-solid fa-x" role="button" tabindex="0" aria-label="Close"></i>
+        </div>
+
+        <div class="input-container">
+          <div class="title-container">
+            <p class="title">Title</p>
+            <input
+              type="text"
+              id="title-input"
+              class="title-input"
+              placeholder="Task title..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="descrip-container">
+            <p class="descrip">Description</p>
+            <input
+              type="text"
+              placeholder="Short description..."
+              id="description-input"
+              class="description-input"
+              autocomplete="off"
+            />
+          </div>
+          <div class="priority-category-container">
+            <div class="p-c-text">
+              <p>priority</p>
+              <p class="c-text">category</p>
+            </div>
+            <div class="priority-package">
+              <div class="priority-container">
+                <p class="low" id="low" role="button" tabindex="0">Low</p>
+                <p class="medium priority-active" id="medium" role="button" tabindex="0">Medium</p>
+                <p class="high" id="high" role="button" tabindex="0">High</p>
+              </div>
+              <div class="drop-down add-dropdown">
+                <select class="sort second" id="second-dropdown">
+                  <option value="work">work</option>
+                  <option value="personal">personal</option>
+                  <option value="shopping">shopping</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="due-date">
+            <p class="date-head">Due date</p>
+            <div class="date-input-wrapper">
+              <div class="date-input">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="mm" class="seg" id="third-input" autocomplete="off" />
+                <span>/</span>
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="dd" class="seg" id="second-input" autocomplete="off" />
+                <span>/</span>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  maxlength="4"
+                  placeholder="yyyy"
+                  class="seg seg-year"
+                  id="first-input"
+                  autocomplete="off"
+                />
+                <i class="fa-solid fa-calendar-days date-icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="add-btns">
+            <button class="cancel" id="cancel">Cancel</button>
+            <button class="add-task" id="add-task" disabled>Add task</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- edit screen -->
+      <div class="add-task-screen edit-task-screen">
+        <div class="head">
+          <h5>Edit Task</h5>
+          <i class="fa-solid fa-x" id="edit-close" role="button" tabindex="0" aria-label="Close"></i>
+        </div>
+
+        <div class="input-container">
+          <div class="title-container">
+            <p class="title">Title</p>
+            <input
+              type="text"
+              id="edit-title-input"
+              class="title-input"
+              placeholder="Task title..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="descrip-container">
+            <p class="descrip">Description</p>
+            <input
+              type="text"
+              placeholder="Short description..."
+              id="edit-description-input"
+              class="description-input"
+              autocomplete="off"
+            />
+          </div>
+          <div class="priority-category-container">
+            <div class="p-c-text">
+              <p>priority</p>
+              <p class="c-text">category</p>
+            </div>
+            <div class="priority-package">
+              <div class="priority-container">
+                <p class="low" id="edit-low" role="button" tabindex="0">Low</p>
+                <p class="medium" id="edit-medium" role="button" tabindex="0">Medium</p>
+                <p class="high" id="edit-high" role="button" tabindex="0">High</p>
+              </div>
+              <div class="drop-down add-dropdown">
+                <select class="sort second" id="edit-second-dropdown">
+                  <option value="work">work</option>
+                  <option value="personal">personal</option>
+                  <option value="shopping">shopping</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="due-date">
+            <p class="date-head">Due date</p>
+            <div class="date-input-wrapper">
+              <div class="date-input">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="mm" class="seg" id="edit-third-input" autocomplete="off" />
+                <span>/</span>
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="dd" class="seg" id="edit-second-input" autocomplete="off" />
+                <span>/</span>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  maxlength="4"
+                  placeholder="yyyy"
+                  class="seg seg-year"
+                  id="edit-first-input"
+                  autocomplete="off"
+                />
+                <i class="fa-solid fa-calendar-days date-icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="add-btns">
+            <button class="cancel" id="edit-cancel">Cancel</button>
+            <button class="add-task" id="save-edit-btn">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <!--delete screen -->
+      <div class="add-task-screen delete-confirm-screen">
+        <div class="head">
+          <h5>Delete Task</h5>
+          <i class="fa-solid fa-x" id="delete-close" role="button" tabindex="0" aria-label="Close"></i>
+        </div>
+
+        <div class="input-container">
+          <div class="delete-body">
+            <div class="delete-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <div class="delete-text">
+              <p>Are you sure you want to delete this task?</p>
+              <p><strong id="delete-task-title"></strong> will be permanently removed.</p>
+            </div>
+          </div>
+          <div class="add-btns">
+            <button class="cancel" id="delete-cancel">Cancel</button>
+            <button class="confirm-delete" id="delete-confirm">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <!--delete all screen -->
+      <div class="add-task-screen delete-all-confirm-screen">
+        <div class="head">
+          <h5>Delete All Tasks</h5>
+          <i class="fa-solid fa-x" id="delete-all-close" role="button" tabindex="0" aria-label="Close"></i>
+        </div>
+
+        <div class="input-container">
+          <div class="delete-body">
+            <div class="delete-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+            <div class="delete-text">
+              <p>Are you sure you want to delete all tasks?</p>
+              <p><strong id="delete-all-count"></strong> will be permanently removed.</p>
+            </div>
+          </div>
+          <div class="add-btns">
+            <button class="cancel" id="delete-all-cancel">Cancel</button>
+            <button class="confirm-delete" id="delete-all-confirm">Delete All</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite">
+        <span class="toast-message" id="toast-message"></span>
+        <button class="toast-undo" id="toast-undo">Undo</button>
+      </div>
+    </main>
+
+    <script src="bootstrap.bundle.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/d51ebdc66a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="javascript/script.js"></script>
+  </body>
+</html>
