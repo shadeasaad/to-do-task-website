@@ -60,6 +60,7 @@ nav {
   transition:
     background-color 0.3s,
     border-color 0.3s;
+  z-index: 90;
 }
 .nav-top {
   display: contents;
@@ -218,7 +219,7 @@ nav {
   justify-content: center;
   gap: 8px;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 .nav-btns .add-task:hover {
   background-color: var(--accent-hover);
@@ -230,13 +231,11 @@ nav {
   align-items: center;
   padding: 20px 40px;
 }
-/*  when there is tasks add the class """task-count-active""" else display none      */
 .task-count {
   background-color: var(--card-bg);
   height: 40px;
   padding: 0 16px;
   border-radius: 16px;
-
   display: none;
   color: var(--muted-text);
 }
@@ -476,19 +475,21 @@ nav {
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
+  padding: 0 20px;
 }
 .card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   background-color: var(--card-bg);
   padding: 12px 16px;
   border-radius: 8px;
   margin-bottom: 12px;
   width: 100%;
   max-width: 889px;
-  height: 112px;
+  min-height: 112px;
+  height: auto;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: 0.3s;
 }
@@ -513,6 +514,7 @@ nav {
   font-size: 16px;
   font-weight: 600;
   color: var(--text);
+  word-break: break-word;
 }
 .lined {
   text-decoration: line-through;
@@ -586,7 +588,8 @@ nav {
   font-size: 14px;
   color: var(--muted-text);
   margin-top: 4px;
-  padding-left: 28px;
+  padding-left: 36px;
+  word-break: break-word;
 }
 
 .category-date {
@@ -594,10 +597,11 @@ nav {
   flex-direction: row;
   align-items: center;
   gap: 16px;
-  padding-left: 28px;
+  padding-left: 36px;
   width: 100%;
   margin-top: 8px;
   transition: 0.3s;
+  flex-wrap: wrap;
 }
 .category {
   display: flex;
@@ -685,7 +689,6 @@ nav {
   width: 28px;
   font-size: 12px;
   color: var(--muted-text);
-
   border: none;
   transition: 0.2s;
   cursor: pointer;
@@ -745,7 +748,7 @@ nav {
 .high {
   padding: 10px;
   border-radius: 100px;
-  cursor: default;
+  cursor: pointer;
   transition: 0.2s;
 }
 
@@ -758,7 +761,6 @@ nav {
 .medium.priority-active {
   background-color: #fbbf24;
   color: white;
-  cursor: pointer;
 }
 .low.priority-active {
   background-color: #10b981;
@@ -783,9 +785,11 @@ nav {
 }
 
 .add-task-screen {
-  width: 448px;
-  height: fit-content;
-  display: flex;
+  width: 100%;
+  max-width: 448px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: none;
   background-color: var(--nav-bg);
   color: var(--text);
   flex-direction: column;
@@ -798,23 +802,21 @@ nav {
   z-index: 1000;
   border-radius: 18px;
   padding-top: 20px;
-  align-items: flex-start;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-  display: none;
   transition:
     background-color 0.3s,
     color 0.3s;
 }
 .add-task-screen.active {
-  display: block;
+  display: flex;
 }
 
 .delete-confirm-screen {
-  width: 400px;
+  max-width: 400px;
 }
 
 .delete-all-confirm-screen {
-  width: 400px;
+  max-width: 400px;
 }
 
 .overlay {
@@ -851,26 +853,28 @@ nav {
 }
 .input-container {
   padding: 20px;
+  width: 100%;
 }
-.title-container {
+.title-container,
+.descrip-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  width: 100%;
 }
 .title-input,
 .description-input {
   border: none;
   outline: none;
-  width: 500px;
+  width: 100%;
   height: 42px;
   background-color: var(--card-bg);
   color: var(--text);
   border-radius: 14px;
-  padding: 20px;
-  width: 400px;
+  padding: 0 20px;
 }
 .c-text {
-  margin-right: 120px;
+  margin-right: 0;
 }
 .title-input:focus,
 .description-input:focus {
@@ -878,7 +882,7 @@ nav {
   box-shadow: 0 0 0 4px rgba(109, 58, 237, 0.15);
 }
 .descrip {
-  margin: 14px 0px;
+  margin: 14px 0px 0px 0px;
 }
 .p-c-text {
   display: flex;
@@ -890,7 +894,7 @@ nav {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
 }
 .priority-package {
   display: flex;
@@ -898,6 +902,8 @@ nav {
   justify-content: space-between;
   align-items: center;
   margin: 10px 0px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 .date-input {
   display: flex;
@@ -916,6 +922,7 @@ nav {
 .date-input-wrapper {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .seg {
@@ -936,42 +943,47 @@ nav {
   color: var(--muted-text);
 }
 .second {
-  width: 159px;
+  width: 100%;
+  max-width: 159px;
   height: 50px;
 }
+.add-dropdown {
+  flex: 1;
+}
 .date-head {
-  margin: 20px 0px;
+  margin: 20px 0px 10px 0px;
 }
 .add-btns {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 20px;
+  margin: 20px 0 0 0;
+  width: 100%;
 }
 .cancel,
-.add-task {
+.add-btns .add-task {
   border-radius: 1000px;
   width: 100%;
   height: 42px;
   outline: none;
   margin-top: 16px;
 }
-.add-task {
+.add-btns .add-task {
   border: none;
   background-color: var(--accent);
   color: var(--bg);
   cursor: pointer;
 }
-.add-task:hover {
+.add-btns .add-task:hover {
   background-color: var(--accent-hover);
 }
-.add-task:disabled {
+.add-btns .add-task:disabled {
   background-color: var(--muted-text);
   cursor: not-allowed;
   opacity: 0.6;
 }
-.add-task:disabled:hover {
+.add-btns .add-task:disabled:hover {
   background-color: var(--muted-text);
 }
 .cancel {
@@ -1134,14 +1146,13 @@ nav {
     gap: 10px;
   }
 
-  .nav-btns .night-mode,
-  .nav-btns .more-info {
+  .nav-btns .night-mode {
     height: 28px;
     width: 28px;
     font-size: 12px;
   }
 
-  .add-task {
+  .nav-btns .add-task {
     width: 32px;
     height: 32px;
     padding: 0;
@@ -1149,8 +1160,12 @@ nav {
     border-radius: 50%;
   }
 
-  .add-task span {
+  .nav-btns .add-task span {
     display: none;
+  }
+
+  main {
+    padding-top: 130px;
   }
 
   .top {
@@ -1169,46 +1184,69 @@ nav {
     font-size: 14px;
   }
 
+  .drop-down-container {
+    justify-content: space-between;
+    width: 100%;
+  }
+
   .drop-down {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    width: auto;
-    height: auto;
-    background: transparent;
-    margin: 0 auto;
   }
 
-  .sort-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: white;
-    border: 0.1px solid var(--border);
-    border-radius: 100px;
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .task-count {
-    font-size: 13px;
-    color: var(--muted-text);
-  }
   .card {
     display: flex;
     flex-direction: column;
+    padding: 14px;
   }
-  .main {
-    padding-top: 120px;
+
+  .card:hover .delete-btn,
+  .card:hover .edit-btn {
+    opacity: 1;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    opacity: 1;
+  }
+
+  .description {
+    padding-left: 0;
+  }
+
+  .category-date {
+    padding-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-btns {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .add-task-screen {
     width: 92vw;
   }
 
-  .title-input,
-  .description-input {
+  .head {
+    padding: 10px 20px;
+  }
+
+  .title-container,
+  .descrip-container {
     width: 100%;
+  }
+
+  .priority-package {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .second {
+    max-width: 100%;
   }
 }
